@@ -8,6 +8,9 @@ const morgan = require('morgan');
 
 const port = process.env.PORT ? process.env.PORT : '3000';
 
+const authController = require('./controllers/auth');
+const User = require('./models/user');
+
 mongoose.connect(process.env.MONGODB_URI);
 
 mongoose.connection.on('connected', () => {
@@ -18,3 +21,14 @@ mongoose.connection.on('connected', () => {
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 app.use(morgan('dev'));
+
+app.use('/auth', authController);
+
+// GET /
+app.get('/', async (req, res) => {
+    res.render('index.ejs');
+});
+
+app.listen(port, () => {
+    console.log(`the express app is ready on port ${port}!`);
+});
