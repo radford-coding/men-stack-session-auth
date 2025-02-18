@@ -9,7 +9,7 @@ const morgan = require('morgan');
 const port = process.env.PORT ? process.env.PORT : '3000';
 
 const authController = require('./controllers/auth');
-const User = require('./models/user');
+// const User = require('./models/user');
 
 mongoose.connect(process.env.MONGODB_URI);
 
@@ -22,6 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 app.use(morgan('dev'));
 
+// ROUTERS - authentication routes are handled in a separate file
 app.use('/auth', authController);
 
 // GET /
